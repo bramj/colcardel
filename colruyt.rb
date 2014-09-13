@@ -58,10 +58,12 @@ class Colruyt
 		product_detail_links = all(".product .prodHeading a").map { |a| a['href'] }
 
 		all(".product").each do |product|
-			# TODO rode prijzen!
 			begin
 				picture = product.find(".prodImage img")["src"]
-				new_item = !product.all(".newProdFlash").empty?
+
+				new_item = product['class'].include? "prodNew"
+				red_price = product['class'].include? "redPrice"
+
 				if product.all(".prodHeading .caption").empty?
 					name = product.find(".prodHeading .detail").text
 				else
